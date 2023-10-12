@@ -84,21 +84,21 @@ func (*server) CreateMovie(ctx context.Context, req *pb.CreateMovieRequest) (*pb
 	}, nil
 }
 
-//func (*server) GetMovie(_ context.Context, req *pb.ReadMovieRequest) (*pb.ReadMovieResponse, error) {
-//	fmt.Println("Read Movie", req.GetId())
-//	var movie Movie
-//	res := DB.Find(&movie, "id = ?", req.GetId())
-//	if res.RowsAffected == 0 {
-//		return nil, errors.New("movie not found")
-//	}
-//	return &pb.ReadMovieResponse{
-//		Movie: &pb.Movie{
-//			Id:    movie.ID,
-//			Title: movie.Title,
-//			Genre: movie.Genre,
-//		},
-//	}, nil
-//}
+func (*server) GetMovie(_ context.Context, req *pb.ReadMovieRequest) (*pb.ReadMovieResponse, error) {
+	fmt.Println("Read Movie", req.Movie)
+	var movie Movie
+	res := DB.Find(&movie, "id = ?", req.Movie)
+	if res.RowsAffected == 0 {
+		return nil, errors.New("movie not found")
+	}
+	return &pb.ReadMovieResponse{
+		Movie: &pb.Movie{
+			Id:    movie.ID,
+			Title: movie.Title,
+			Genre: movie.Genre,
+		},
+	}, nil
+}
 
 func (*server) GetMovies(ctx context.Context, req *pb.ReadMoviesRequest) (*pb.ReadMoviesResponse, error) {
 	fmt.Println("Read Movies")

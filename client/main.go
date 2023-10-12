@@ -45,19 +45,19 @@ func main() {
 			"movies": res.Movies,
 		})
 	})
-	//r.GET("/movies/:id", func(ctx *gin.Context) {
-	//	id := ctx.Param("id")
-	//	res, err := client.GetMovie(ctx, &pb.ReadMovieRequest{Id: id})
-	//	if err != nil {
-	//		ctx.JSON(http.StatusNotFound, gin.H{
-	//			"message": err.Error(),
-	//		})
-	//		return
-	//	}
-	//	ctx.JSON(http.StatusOK, gin.H{
-	//		"movie": res.Movie,
-	//	})
-	//})
+	r.GET("/movies/:id", func(ctx *gin.Context) {
+		id := ctx.Param("id")
+		res, err := client.GetMovie(ctx, &pb.ReadMovieRequest{Movie: id})
+		if err != nil {
+			ctx.JSON(http.StatusNotFound, gin.H{
+				"message": err.Error(),
+			})
+			return
+		}
+		ctx.JSON(http.StatusOK, gin.H{
+			"movie": res.Movie,
+		})
+	})
 	r.POST("/movies", func(ctx *gin.Context) {
 		var movie Movie
 
